@@ -2921,9 +2921,14 @@ namespace aspect
                             + std::to_string(rotation_matrix[2][0]) + " " + std::to_string(rotation_matrix[2][1]) + " " + std::to_string(rotation_matrix[2][2])));
 
 
-      AssertThrow(rotation_matrix[2][2] <= 1.0, ExcMessage("rot_matrix[2][2] > 1.0"));
+// revised
+//      AssertThrow(rotation_matrix[2][2] <= 1.0, ExcMessage("rot_matrix[2][2] > 1.0"));
+//      const double theta = std::acos(rotation_matrix[2][2]);
+      double R33 = rotation_matrix[2][2];
+      if (R33 > 1.0) R33 = 1.0;
+      if (R33 < -1.0) R33 = -1.0;
+      const double theta = std::acos(R33);
 
-      const double theta = std::acos(rotation_matrix[2][2]);
       double phi1 = 0.0;
       double phi2 = 0.0;
 
